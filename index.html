@@ -78,16 +78,17 @@ button { cursor: pointer }
 .job .sub .due { color: var(--due); font-weight: 600 }
 .jbar { height: 4px; border-radius: 2px; background: var(--fill); overflow: hidden }
 .jbar i { display: block; height: 100%; background: var(--hero-bar) }
-.pills { display: flex; flex-wrap: wrap; gap: 6px }
-.pill { border: 1px solid var(--line); background: none; border-radius: 9px; padding: 4px 9px; font-size: 12.5px; display: flex; flex-direction: column; line-height: 1.35; text-align: left }
-.pill b { font-weight: 600 }
+.pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px }
+.pill { border: 1px solid var(--line); background: none; border-radius: 9px; padding: 6px 8px; font-size: 14px; display: flex; flex-direction: column; line-height: 1.3; text-align: left; min-width: 0; overflow-wrap: anywhere }
+.pill b { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.pill .pn { font-weight: 600 }
 .pill small { font-size: 11px; color: var(--muted) }
 .pill.paid { background: var(--pill-paid); border-color: transparent }
 .pill.paid b { color: var(--pill-paid-ink) }
 .pill.paid small { color: var(--pill-paid-sub) }
 .pill.due b { color: var(--due) }
-.pill.due small::before { content: "แตะเมื่อได้รับเงิน" }
-.done .pill.due small::before { content: "ยังไม่ได้รับ" }
+.pill.due small:last-child::before { content: "แตะเมื่อรับเงิน" }
+.done .pill.due small:last-child::before { content: "ยังไม่ได้รับ" }
 .empty { color: var(--muted); text-align: center; padding: 24px 8px }
 .yr { font-size: 13px; font-weight: 700; color: var(--muted); margin: 6px 2px -2px }
 
@@ -335,7 +336,7 @@ function renderHero() {
 function jobCard(j) {
   const tot = jTotal(j), paid = jPaid(j), due = r2(tot - paid);
   const pills = j.inst.map((x, i) => `<button type="button" class="pill ${x.paid ? "paid" : "due"}" data-j="${j.id}" data-i="${i}">
-      <b class="num">งวด ${x.no} · ${fmt2(+x.a)}${x.paid ? " ✓" : ""}</b><small>${x.paid ? (x.d ? dShort(x.d) : "ไม่ระบุวันที่") + (x.img ? ' · <span class="hasimg">ดูสลิป</span>' : x.slip ? " · สลิป" : "") : ""}</small></button>`).join("");
+      <small class="pn">งวด ${x.no}${x.paid ? " ✓" : ""}</small><b class="num">${fmt2(+x.a)}</b><small>${x.paid ? (x.d ? dShort(x.d) : "ไม่ระบุวันที่") + (x.img ? ' · <span class="hasimg">ดูสลิป</span>' : x.slip ? " · สลิป" : "") : ""}</small></button>`).join("");
   return `<article class="job${j.done ? " done" : ""}">
     <button type="button" class="head" data-edit="${j.id}"><span class="name">${esc(j.name)}</span><span class="total num">${fmt2(tot)}</span></button>
     <div class="jbar"><i style="width:${tot ? (paid / tot * 100).toFixed(1) : 0}%"></i></div>
