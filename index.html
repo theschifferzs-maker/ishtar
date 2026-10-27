@@ -21,7 +21,9 @@
   --bg: #DFDED9; --surface: #FFFFFF; --ink: #2B2B2B; --muted: #7D7974; --line: #DFDED9; --fill: #F4F3EF;
   --accent: #3F3F3F; --on-accent: #FFFFFF;
   --paid: #5E8A76; --paid-soft: #E3EEE9; --due: #46242A; --due-soft: #F3E6E7;
-  --hero: #95B1EE; --hero-num: #E7F1A8; --hero-label: #F8F7E6; --hero-track: rgba(255,255,255,.3); --hero-bar: #3A4F99;
+  --hero: #332824; --hero-num: #E7F1A8; --hero-label: #F8F7E6; --hero-track: rgba(255,255,255,.3); --hero-bar: #3A4F99;
+  --name: #6E6A1F;
+  --pill-paid: #6E776F; --pill-paid-ink: #FFFFFF; --pill-paid-sub: #E3E7E2;
   --scrim: rgba(20,20,20,.45); --toast-link: #9ABDE2;
   --font: "Anuphan", -apple-system, BlinkMacSystemFont, "SF Pro Text", Thonburi, "Noto Sans Thai", Tahoma, sans-serif;
   color-scheme: light;
@@ -30,6 +32,7 @@
   --bg: #1A1A1A; --surface: #262626; --ink: #F4F3EF; --muted: #A09C98; --line: #363636; --fill: #303030;
   --accent: #9ABDE2; --on-accent: #1A1A1A;
   --paid: #ABC9B9; --paid-soft: #26332E; --due: #D4A9AF; --due-soft: #3A2A2C;
+  --name: #E7F1A8;
   --scrim: rgba(0,0,0,.6); --toast-link: #3F6E9E; color-scheme: dark } }
 
 *, *::before, *::after { box-sizing: border-box }
@@ -69,18 +72,19 @@ button { cursor: pointer }
 .list { display: flex; flex-direction: column; gap: 10px }
 .job { background: var(--surface); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px }
 .job .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border: 0; background: none; padding: 0; text-align: left; width: 100% }
-.job .name { font-weight: 600; font-size: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.job .name { color: var(--name); font-weight: 600; font-size: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 .job .total { font-weight: 600; flex: 0 0 auto }
 .job .sub { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px }
 .job .sub .due { color: var(--due); font-weight: 600 }
 .jbar { height: 4px; border-radius: 2px; background: var(--fill); overflow: hidden }
-.jbar i { display: block; height: 100%; background: var(--paid) }
+.jbar i { display: block; height: 100%; background: var(--hero-bar) }
 .pills { display: flex; flex-wrap: wrap; gap: 6px }
 .pill { border: 1px solid var(--line); background: none; border-radius: 9px; padding: 4px 9px; font-size: 12.5px; display: flex; flex-direction: column; line-height: 1.35; text-align: left }
 .pill b { font-weight: 600 }
 .pill small { font-size: 11px; color: var(--muted) }
-.pill.paid { background: var(--paid-soft); border-color: transparent }
-.pill.paid b { color: var(--paid) }
+.pill.paid { background: var(--pill-paid); border-color: transparent }
+.pill.paid b { color: var(--pill-paid-ink) }
+.pill.paid small { color: var(--pill-paid-sub) }
 .pill.due b { color: var(--due) }
 .pill.due small::before { content: "แตะเมื่อได้รับเงิน" }
 .done .pill.due small::before { content: "ยังไม่ได้รับ" }
